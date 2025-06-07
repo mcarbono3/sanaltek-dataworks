@@ -1,0 +1,179 @@
+/**
+ * Sanaltek Dataworks - Animaciones CSS
+ * Animaciones y transiciones para mejorar la experiencia de usuario
+ */
+
+/* Animación de fade-in para elementos */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animación de pulse para botones y elementos interactivos */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Animación de slide-in desde la izquierda */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animación de slide-in desde la derecha */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animación de bounce para llamar la atención */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Clases de animación para aplicar a elementos */
+.fade-in {
+    animation: fadeIn 1s ease forwards;
+}
+
+.slide-in-left {
+    animation: slideInLeft 1s ease forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 1s ease forwards;
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+.bounce {
+    animation: bounce 2s ease infinite;
+}
+
+/* Animaciones con retardo para elementos secuenciales */
+.delay-100 {
+    animation-delay: 0.1s;
+}
+
+.delay-200 {
+    animation-delay: 0.2s;
+}
+
+.delay-300 {
+    animation-delay: 0.3s;
+}
+
+.delay-400 {
+    animation-delay: 0.4s;
+}
+
+.delay-500 {
+    animation-delay: 0.5s;
+}
+
+/* Animaciones para secciones específicas */
+.hero h1 {
+    animation: fadeIn 1s ease 0.2s forwards;
+    opacity: 0;
+}
+
+.hero-text {
+    animation: fadeIn 1s ease 0.4s forwards;
+    opacity: 0;
+}
+
+.hero .btn {
+    animation: fadeIn 1s ease 0.6s forwards;
+    opacity: 0;
+}
+
+.section-header h2 {
+    animation: slideInLeft 1s ease forwards;
+}
+
+.section-header .underline {
+    animation: slideInRight 1s ease 0.2s forwards;
+    opacity: 0;
+}
+
+/* Animaciones para tarjetas y elementos interactivos */
+.service-card:hover .service-icon {
+    animation: pulse 1s infinite;
+}
+
+.btn-primary:hover {
+    animation: pulse 1s infinite;
+}
+
+/* Animación para el formulario de contacto */
+.contact-form .form-group {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.contact-form .form-group:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.contact-form .form-group:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.contact-form .form-group:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.contact-form .form-group:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.contact-form .btn {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition-delay: 0.5s;
+}
+
+.contact-form.visible .form-group,
+.contact-form.visible .btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
