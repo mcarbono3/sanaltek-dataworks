@@ -312,15 +312,26 @@
     <script src="js/form-handler.js"></script>
     <script src="js/animations.js"></script>
     
-    <!-- PeterAI Widget -->
-<script src="https://mcarbono3.github.io/sanaltek-dataworks/js/peterai-integration-fixed.js"></script>
+<!-- PeterAI Widget -->
 <script>
-  initPeterAI({
-    apiBaseUrl: 'https://majestic-cascaron-b5db5a.netlify.app/.netlify/functions',
-    position: 'bottom-right',
-    theme: 'sanaltek'
+    window.PETERAI_MANUAL_INIT = true;
+</script>
+<script src="js/peterai-integration-fixed.js"></script> <!-- VERIFICA ESTA RUTA -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.initPeterAI) {
+      window.peterAI = window.initPeterAI({
+        // apiBaseUrl: 'https://majestic-cascaron-b5db5a.netlify.app/.netlify/functions', // Ya está en el script, pero no hace daño si es la misma
+        position: 'bottom-right',
+        theme: 'sanaltek',
+        autoOpen: false
+      } );
+    } else {
+      console.error('Error: La función initPeterAI no está disponible.');
+    }
   });
 </script>
+<!-- Fin PeterAI Widget -->
 </body>
 </html>
 
