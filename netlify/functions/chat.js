@@ -4,7 +4,7 @@ const { processQuery, determineQueryType, processSpecificTask } = require('./uti
 exports.handler = async (event, context) => {
   // Configurar CORS
   const headers = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'https://mcarbono3.github.io',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Content-Type': 'application/json'
