@@ -481,7 +481,8 @@
             // Inicializar elementos
             this.initializeElements();
             this.bindEvents();
-            this.checkAuthentication();
+            //this.checkAuthentication();
+            this.showChatArea();
         }
 
         initializeElements() {
