@@ -1,0 +1,27 @@
+{
+  "name": "peterai-backend",
+  "version": "1.0.0",
+  "description": "Backend serverless para PeterAI - Agente de IA para Sanaltek Dataworks",
+  "main": "index.js",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build step required'",
+    "test": "echo 'No tests specified'"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "openai": "^4.20.1",
+    "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3",
+    "csv-writer": "^1.6.0",
+    "jspdf": "^2.5.1",
+    "html-pdf": "^3.0.1"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "keywords": ["ai", "chatbot", "serverless", "netlify"],
+  "author": "Sanaltek Dataworks",
+  "license": "MIT"
+}
+
