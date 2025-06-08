@@ -9,7 +9,8 @@
     // Configuración del widget
     const PETERAI_CONFIG = {
         // URL del backend serverless (cambiar por la URL real de producción)
-        apiBaseUrl: 'https://your-netlify-site.netlify.app/api',
+        apiBaseUrl: 'https://majestic-cascaron-b5db5a.netlify.app/.netlify/functions
+',
         
         // Configuración visual
         position: 'bottom-right', // bottom-right, bottom-left, top-right, top-left
