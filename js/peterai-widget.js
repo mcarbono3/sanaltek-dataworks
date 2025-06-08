@@ -5,7 +5,7 @@
 
 class PeterAIWidget {
     constructor() {
-        this.apiBaseUrl = 'https://your-netlify-site.netlify.app/api'; // Cambiar por la URL real
+        this.apiBaseUrl = 'https://majestic-cascaron-b5db5a.netlify.app/.netlify/functions'; // Cambiar por la URL real
         this.token = localStorage.getItem('peterai_token');
         this.isOpen = false;
         this.isMinimized = false;
