@@ -1,12 +1,13 @@
 const { OpenAI } = require('openai');
 
-// Configuración de OpenAI
+// Configuración para usar Groq en lugar de OpenAI
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,            // Usa la variable existente
+  baseURL: 'https://api.groq.com/openai/v1'      // Apunta al endpoint de Groq
 });
 
 /**
- * Procesa una consulta usando OpenAI GPT-4-turbo
+ * Procesa una consulta usando Groq (compatible con OpenAI SDK)
  * @param {string} userMessage - Mensaje del usuario
  * @param {string} context - Contexto adicional (opcional)
  * @returns {Promise<string>} - Respuesta de la IA
@@ -36,7 +37,7 @@ ${context ? `Contexto adicional: ${context}` : ''}
 Responde de manera profesional, concisa y útil. Si necesitas generar un reporte o tabla, indica claramente el formato requerido.`;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "llama3-70b-8192", // Reemplaza por el modelo Groq que desees
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userMessage }
@@ -47,16 +48,10 @@ Responde de manera profesional, concisa y útil. Si necesitas generar un reporte
 
     return completion.choices[0].message.content;
   } catch (error) {
-    console.error('Error en OpenAI:', error);
+    console.error('Error en Groq:', error);
     throw new Error('Error al procesar la consulta con IA');
   }
 }
-
-/**
- * Determina el tipo de consulta del usuario
- * @param {string} userMessage - Mensaje del usuario
- * @returns {string} - Tipo de consulta (query, report, email, faq, etc.)
- */
 function determineQueryType(userMessage) {
   const message = userMessage.toLowerCase();
   
