@@ -121,6 +121,13 @@
 .hero .btn {
     animation: fadeIn 1s ease 0.6s forwards;
     opacity: 0;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.hero .btn:hover {
+    transform: scale(1.05); /* El botón se agranda un 5% */
+    opacity: 0.9; /* Se desvanece ligeramente para dar un efecto de profundidad */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Agrega una sombra para un efecto 3D */
 }
 
 .section-header h2 {
