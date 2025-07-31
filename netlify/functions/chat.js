@@ -7,6 +7,10 @@ exports.handler = async (event, context) => {
   'https://mcarbono3.github.io',
   'https://sanaltek-dataworks.vercel.app'
 ];
+
+  const origin = event.headers.origin || event.headers.Origin;
+  const allowedOrigin = allowedOrigins.includes(origin) ? origin : allowedOrigins[0]; 
+  
   const headers = {
     'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
