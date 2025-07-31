@@ -60,30 +60,26 @@
                 right: 20px;
                 width: 60px;
                 height: 60px;
-                background: linear-gradient(135deg, #2c5f5f 0%, #4a8080 100%);
-                border-radius: 50%;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 10px 20px rgba(44, 95, 95, 0.3);
                 z-index: 10001;
                 transition: all 0.3s ease;
             }
 
             .peterai-trigger:hover {
                 transform: scale(1.1);
-                box-shadow: 0 15px 30px rgba(44, 95, 95, 0.4);
             }
 
             .peterai-trigger.hidden {
                 display: none;
             }
-
+            
+            /* Ajuste del SVG para el nuevo icono */
             .peterai-trigger svg {
-                width: 24px;
-                height: 24px;
-                fill: white;
+                width: 60px;
+                height: 60px;
             }
 
             .peterai-header {
@@ -385,84 +381,79 @@
     }
 
     // Función para crear el HTML del widget
-function createWidgetHTML() {
-    return `
-        <div class="peterai-trigger" id="peteraiTrigger">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24.0001 4C12.9545 4 4.00006 12.9544 4.00006 24C4.00006 35.0456 12.9545 44 24.0001 44C35.0457 44 44.0001 35.0456 44.0001 24C44.0001 12.9544 35.0457 4 24.0001 4Z" fill="#2c5f5f"/>
-                <path d="M12.9091 16C12.9091 14.8954 13.8045 14 14.9091 14H33.091C34.1956 14 35.091 14.8954 35.091 16V20C35.091 21.1046 34.1956 22 33.091 22H14.9091C13.8045 22 12.9091 21.1046 12.9091 20V16Z" fill="#2c5f5f"/>
-                <path d="M16.9091 24C16.9091 22.8954 17.8045 22 18.9091 22H29.091C30.1956 22 31.091 22.8954 31.091 24V28C31.091 29.1046 30.1956 30 29.091 30H18.9091C17.8045 30 16.9091 29.1046 16.9091 28V24Z" fill="white"/>
-                <path d="M19.0001 26C19.0001 24.8954 19.8955 24 21.0001 24H27.0001C28.1046 24 29.0001 24.8954 29.0001 26C29.0001 27.1046 28.1046 28 27.0001 28H21.0001C19.8955 28 19.0001 27.1046 19.0001 26Z" fill="#2c5f5f"/>
-                <path d="M12.9091 24C12.9091 22.8954 13.8045 22 14.9091 22H33.091C34.1956 22 35.091 22.8954 35.091 24V28C35.091 29.1046 34.1956 30 33.091 30H14.9091C13.8045 30 12.9091 29.1046 12.9091 28V24Z" fill="#2c5f5f"/>
-                <circle cx="20.0001" cy="26" r="1" fill="white"/>
-                <circle cx="28.0001" cy="26" r="1" fill="white"/>
-            </svg>
-        </div>
-
-        <div class="peterai-widget" id="peteraiWidget">
-            <div class="peterai-header">
-                <h3 class="peterai-title">
-                    <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M24.0001 4C12.9545 4 4.00006 12.9544 4.00006 24C4.00006 35.0456 12.9545 44 24.0001 44C35.0457 44 44.0001 35.0456 44.0001 24C44.0001 12.9544 35.0457 4 24.0001 4Z" fill="#2c5f5f"/>
-                        <path d="M12.9091 16C12.9091 14.8954 13.8045 14 14.9091 14H33.091C34.1956 14 35.091 14.8954 35.091 16V20C35.091 21.1046 34.1956 22 33.091 22H14.9091C13.8045 22 12.9091 21.1046 12.9091 20V16Z" fill="#2c5f5f"/>
-                        <path d="M16.9091 24C16.9091 22.8954 17.8045 22 18.9091 22H29.091C30.1956 22 31.091 22.8954 31.091 24V28C31.091 29.1046 30.1956 30 29.091 30H18.9091C17.8045 30 16.9091 29.1046 16.9091 28V24Z" fill="white"/>
-                        <path d="M19.0001 26C19.0001 24.8954 19.8955 24 21.0001 24H27.0001C28.1046 24 29.0001 24.8954 29.0001 26C29.0001 27.1046 28.1046 28 27.0001 28H21.0001C19.8955 28 19.0001 27.1046 19.0001 26Z" fill="#2c5f5f"/>
-                        <path d="M12.9091 24C12.9091 22.8954 13.8045 22 14.9091 22H33.091C34.1956 22 35.091 22.8954 35.091 24V28C35.091 29.1046 34.1956 30 33.091 30H14.9091C13.8045 30 12.9091 29.1046 12.9091 28V24Z" fill="#2c5f5f"/>
-                        <circle cx="20.0001" cy="26" r="1" fill="white"/>
-                        <circle cx="28.0001" cy="26" r="1" fill="white"/>
-                    </svg>
-                    PeterAI
-                </h3>
-                <div class="peterai-controls">
-                    <button class="peterai-btn" id="peteraiMinimizeBtn" title="Minimizar">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="5" y="11" width="14" height="2" fill="currentColor"/>
-                        </svg>
-                    </button>
-                    <button class="peterai-btn" id="peteraiCloseBtn" title="Cerrar">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
+    function createWidgetHTML() {
+        return `
+            <div class="peterai-trigger" id="peteraiTrigger">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24 4C14.0588 4 6 12.0588 6 22V24C6 26.1718 6.64367 28.2713 7.82843 30L15 37.1716V42C15 43.1046 15.8954 44 17 44H31C32.1046 44 33 43.1046 33 42V37.1716L40.1716 30C41.3563 28.2713 42 26.1718 42 24V22C42 12.0588 33.9412 4 24 4ZM17 24C17 22.8954 17.8954 22 19 22H29C30.1046 22 31 22.8954 31 24V28C31 29.1046 30.1046 30 29 30H19C17.8954 30 17 29.1046 17 28V24Z" fill="#2c5f5f"/>
+                    <rect x="18" y="14" width="12" height="2" rx="1" fill="#2c5f5f"/>
+                    <rect x="19" y="26" width="2" height="2" rx="1" fill="#FFFFFF"/>
+                    <rect x="27" y="26" width="2" height="2" rx="1" fill="#FFFFFF"/>
+                </svg>
             </div>
 
-            <div class="peterai-auth" id="peteraiAuth">
-                <h3>Acceso a PeterAI</h3>
-                <input type="text" class="peterai-input" id="peteraiUsername" placeholder="Usuario" autocomplete="username">
-                <input type="password" class="peterai-input" id="peteraiPassword" placeholder="Contraseña" autocomplete="current-password">
-                <button class="peterai-login-btn" id="peteraiLoginBtn">Iniciar Sesión</button>
-                <div class="peterai-error" id="peteraiAuthError" style="display: none;"></div>
-            </div>
-
-            <div class="peterai-chat" id="peteraiChat">
-                <div class="peterai-messages" id="peteraiMessages">
-                    <div class="peterai-message system">
-                        ¡Hola! Soy PeterAI, tu asistente de IA para Sanaltek Dataworks. ¿En qué puedo ayudarte hoy?
-                    </div>
-                </div>
-                
-                <div class="peterai-typing" id="peteraiTyping">
-                    <span>PeterAI está escribiendo</span>
-                    <div class="peterai-typing-dots">
-                        <div class="peterai-typing-dot"></div>
-                        <div class="peterai-typing-dot"></div>
-                        <div class="peterai-typing-dot"></div>
+            <div class="peterai-widget" id="peteraiWidget">
+                <div class="peterai-header">
+                    <h3 class="peterai-title">
+                        <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 4C14.0588 4 6 12.0588 6 22V24C6 26.1718 6.64367 28.2713 7.82843 30L15 37.1716V42C15 43.1046 15.8954 44 17 44H31C32.1046 44 33 43.1046 33 42V37.1716L40.1716 30C41.3563 28.2713 42 26.1718 42 24V22C42 12.0588 33.9412 4 24 4ZM17 24C17 22.8954 17.8954 22 19 22H29C30.1046 22 31 22.8954 31 24V28C31 29.1046 30.1046 30 29 30H19C17.8954 30 17 29.1046 17 28V24Z" fill="#2c5f5f"/>
+                            <rect x="18" y="14" width="12" height="2" rx="1" fill="#2c5f5f"/>
+                            <rect x="19" y="26" width="2" height="2" rx="1" fill="#FFFFFF"/>
+                            <rect x="27" y="26" width="2" height="2" rx="1" fill="#FFFFFF"/>
+                        </svg>
+                        PeterAI
+                    </h3>
+                    <div class="peterai-controls">
+                        <button class="peterai-btn" id="peteraiMinimizeBtn" title="Minimizar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="5" y="11" width="14" height="2" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        <button class="peterai-btn" id="peteraiCloseBtn" title="Cerrar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
 
-                <div class="peterai-input-area">
-                    <textarea class="peterai-chat-input" id="peteraiChatInput" placeholder="Escribe tu mensaje..." rows="1"></textarea>
-                    <button class="peterai-send-btn" id="peteraiSendBtn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                        </svg>
-                    </button>
+                <div class="peterai-auth" id="peteraiAuth">
+                    <h3>Acceso a PeterAI</h3>
+                    <input type="text" class="peterai-input" id="peteraiUsername" placeholder="Usuario" autocomplete="username">
+                    <input type="password" class="peterai-input" id="peteraiPassword" placeholder="Contraseña" autocomplete="current-password">
+                    <button class="peterai-login-btn" id="peteraiLoginBtn">Iniciar Sesión</button>
+                    <div class="peterai-error" id="peteraiAuthError" style="display: none;"></div>
+                </div>
+
+                <div class="peterai-chat" id="peteraiChat">
+                    <div class="peterai-messages" id="peteraiMessages">
+                        <div class="peterai-message system">
+                            ¡Hola! Soy PeterAI, tu asistente de IA para Sanaltek Dataworks. ¿En qué puedo ayudarte hoy?
+                        </div>
+                    </div>
+                    
+                    <div class="peterai-typing" id="peteraiTyping">
+                        <span>PeterAI está escribiendo</span>
+                        <div class="peterai-typing-dots">
+                            <div class="peterai-typing-dot"></div>
+                            <div class="peterai-typing-dot"></div>
+                            <div class="peterai-typing-dot"></div>
+                        </div>
+                    </div>
+
+                    <div class="peterai-input-area">
+                        <textarea class="peterai-chat-input" id="peteraiChatInput" placeholder="Escribe tu mensaje..." rows="1"></textarea>
+                        <button class="peterai-send-btn" id="peteraiSendBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    `;
-}
+        `;
+    }
+
     // Clase principal del widget
     class PeterAIWidget {
         constructor(config) {
@@ -816,4 +807,3 @@ function createWidgetHTML() {
     }
 
 })();
-
