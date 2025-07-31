@@ -1,9 +1,16 @@
 const { validateCredentials, generateToken } = require('./utils/auth-utils');
 
 exports.handler = async (event, context) => {
-  // Configurar CORS
+    const allowedOrigins = [
+    'https://mcarbono3.github.io',
+    'https://sanaltek-dataworks.vercel.app'
+  ];
+
+  const origin = event.headers.origin || '';
+  const corsOrigin = allowedOrigins.includes(origin) ? origin : '';
+  
   const headers = {
-    'Access-Control-Allow-Origin': 'https://mcarbono3.github.io',
+    'Access-Control-Allow-Origin': corsOrigin,    
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Content-Type': 'application/json'
