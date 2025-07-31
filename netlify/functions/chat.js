@@ -3,8 +3,12 @@ const { processQuery, determineQueryType, processSpecificTask } = require('./uti
 
 exports.handler = async (event, context) => {
   // Configurar CORS
+  const allowedOrigins = [
+  'https://mcarbono3.github.io',
+  'https://sanaltek-dataworks.vercel.app'
+];
   const headers = {
-    'Access-Control-Allow-Origin': 'https://mcarbono3.github.io',
+    'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Content-Type': 'application/json'
