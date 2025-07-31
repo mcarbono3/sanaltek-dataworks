@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sanaltek-dataworks.vercel.app/sitemap.xml
