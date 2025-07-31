@@ -385,31 +385,31 @@
     }
 
     // Función para crear el HTML del widget
-    function createWidgetHTML() {
+function createWidgetHTML() {
         return `
             <div class="peterai-trigger" id="peteraiTrigger">
-                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M24 4A20 20 0 0 0 4 24a20 20 0 0 0 20 20 20 20 0 0 0 20-20A20 20 0 0 0 24 4z" fill="#2c5f5f"/>
-                    <path d="M14 18h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z" fill="white"/>
-                    <path d="M30 18h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z" fill="white"/>
-                    <path d="M24 32c-4 0-7-2-7-5 0-3 3-5 7-5s7 2 7 5c0 3-3 5-7 5z" fill="white"/>
-                    <path d="M8 16c0-3 2-5 5-5h22c3 0 5 2 5 5v16c0 3-2 5-5 5H13c-3 0-5-2-5-5V16z" fill="#2c5f5f"/>
-                    <path d="M16 19a3 3 0 1 0-6 0 3 3 0 0 0 6 0zM32 19a3 3 0 1 0-6 0 3 3 0 0 0 6 0z" fill="#2c5f5f"/>
-                    <path d="M20 35h8v2h-8z" fill="white"/>
-                    <path d="M10 14h6v2h-6zM32 14h6v2h-6z" fill="white"/>
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24.0001 4C12.9545 4 4.00006 12.9544 4.00006 24C4.00006 35.0456 12.9545 44 24.0001 44C35.0457 44 44.0001 35.0456 44.0001 24C44.0001 12.9544 35.0457 4 24.0001 4Z" fill="#2c5f5f"/>
+                    <path d="M12.9091 16C12.9091 14.8954 13.8045 14 14.9091 14H33.091C34.1956 14 35.091 14.8954 35.091 16V20C35.091 21.1046 34.1956 22 33.091 22H14.9091C13.8045 22 12.9091 21.1046 12.9091 20V16Z" fill="#2c5f5f"/>
+                    <path d="M16.9091 24C16.9091 22.8954 17.8045 22 18.9091 22H29.091C30.1956 22 31.091 22.8954 31.091 24V28C31.091 29.1046 30.1956 30 29.091 30H18.9091C17.8045 30 16.9091 29.1046 16.9091 28V24Z" fill="white"/>
+                    <path d="M19.0001 26C19.0001 24.8954 19.8955 24 21.0001 24H27.0001C28.1046 24 29.0001 24.8954 29.0001 26C29.0001 27.1046 28.1046 28 27.0001 28H21.0001C19.8955 28 19.0001 27.1046 19.0001 26Z" fill="#2c5f5f"/>
+                    <path d="M12.9091 24C12.9091 22.8954 13.8045 22 14.9091 22H33.091C34.1956 22 35.091 22.8954 35.091 24V28C35.091 29.1046 34.1956 30 33.091 30H14.9091C13.8045 30 12.9091 29.1046 12.9091 28V24Z" fill="#2c5f5f"/>
+                    <circle cx="20.0001" cy="26" r="1" fill="white"/>
+                    <circle cx="28.0001" cy="26" r="1" fill="white"/>
                 </svg>
             </div>
 
             <div class="peterai-widget" id="peteraiWidget">
                 <div class="peterai-header">
                     <h3 class="peterai-title">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C8.68629 2 6 4.68629 6 8V14C6 17.3137 8.68629 20 12 20C15.3137 20 18 17.3137 18 14V8C18 4.68629 15.3137 2 12 2Z" fill="white" stroke="#2c5f5f" stroke-width="2"/>
-                            <path d="M9 11.5C9 10.6716 9.67157 10 10.5 10C11.3284 10 12 10.6716 12 11.5C12 12.3284 11.3284 13 10.5 13C9.67157 13 9 12.3284 9 11.5Z" fill="#2c5f5f"/>
-                            <path d="M15 11.5C15 10.6716 15.6716 10 16.5 10C17.3284 10 18 10.6716 18 11.5C18 12.3284 17.3284 13 16.5 13C15.6716 13 15 12.3284 15 11.5Z" fill="#2c5f5f"/>
-                            <path d="M12 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M9 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M15 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
+                        <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24.0001 4C12.9545 4 4.00006 12.9544 4.00006 24C4.00006 35.0456 12.9545 44 24.0001 44C35.0457 44 44.0001 35.0456 44.0001 24C44.0001 12.9544 35.0457 4 24.0001 4Z" fill="#2c5f5f"/>
+                            <path d="M12.9091 16C12.9091 14.8954 13.8045 14 14.9091 14H33.091C34.1956 14 35.091 14.8954 35.091 16V20C35.091 21.1046 34.1956 22 33.091 22H14.9091C13.8045 22 12.9091 21.1046 12.9091 20V16Z" fill="#2c5f5f"/>
+                            <path d="M16.9091 24C16.9091 22.8954 17.8045 22 18.9091 22H29.091C30.1956 22 31.091 22.8954 31.091 24V28C31.091 29.1046 30.1956 30 29.091 30H18.9091C17.8045 30 16.9091 29.1046 16.9091 28V24Z" fill="white"/>
+                            <path d="M19.0001 26C19.0001 24.8954 19.8955 24 21.0001 24H27.0001C28.1046 24 29.0001 24.8954 29.0001 26C29.0001 27.1046 28.1046 28 27.0001 28H21.0001C19.8955 28 19.0001 27.1046 19.0001 26Z" fill="#2c5f5f"/>
+                            <path d="M12.9091 24C12.9091 22.8954 13.8045 22 14.9091 22H33.091C34.1956 22 35.091 22.8954 35.091 24V28C35.091 29.1046 34.1956 30 33.091 30H14.9091C13.8045 30 12.9091 29.1046 12.9091 28V24Z" fill="#2c5f5f"/>
+                            <circle cx="20.0001" cy="26" r="1" fill="white"/>
+                            <circle cx="28.0001" cy="26" r="1" fill="white"/>
                         </svg>
                         PeterAI
                     </h3>
@@ -441,7 +441,7 @@
                             ¡Hola! Soy PeterAI, tu asistente de IA para Sanaltek Dataworks. ¿En qué puedo ayudarte hoy?
                         </div>
                     </div>
-                   
+                    
                     <div class="peterai-typing" id="peteraiTyping">
                         <span>PeterAI está escribiendo</span>
                         <div class="peterai-typing-dots">
@@ -461,7 +461,7 @@
                     </div>
                 </div>
             </div>
-        `;
+        \`;
     }
 
     // Clase principal del widget
