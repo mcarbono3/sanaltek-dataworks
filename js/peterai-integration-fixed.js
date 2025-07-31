@@ -60,10 +60,13 @@
                 right: 20px;
                 width: 60px;
                 height: 60px;
+                background-color: #2c5f5f;
+                border-radius: 50%;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
                 z-index: 10001;
                 transition: all 0.3s ease;
             }
@@ -78,8 +81,8 @@
             
             /* Ajuste del SVG para el nuevo icono */
             .peterai-trigger svg {
-                width: 60px;
-                height: 60px;
+                width: 32px;
+                height: 32px;
             }
 
             .peterai-header {
@@ -385,9 +388,8 @@
         return `
             <div class="peterai-trigger" id="peteraiTrigger">
                 <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M30 4C19.78 4 11.2 12.0588 11.2 22V24C11.2 26.1718 11.8437 28.2713 13.0284 30L19.4284 36.4C21.4338 38.4116 23.9317 39.7348 26.69 40.2319V44C26.69 45.1046 27.5854 46 28.69 46H31.31C32.4146 46 33.31 45.1046 33.31 44V40.2319C36.0683 39.7348 38.5662 38.4116 40.5716 36.4L46.9716 30C48.1563 28.2713 48.8 26.1718 48.8 24V22C48.8 12.0588 40.22 4 30 4ZM20 22C20 20.8954 20.8954 20 22 20H38C39.1046 20 40 20.8954 40 22V28C40 29.1046 39.1046 30 38 30H22C20.8954 30 20 29.1046 20 28V22ZM24.5 24C24.5 25.1046 25.3954 26 26.5 26H33.5C34.6046 26 35.5 25.1046 35.5 24C35.5 22.8954 34.6046 22 33.5 22H26.5C25.3954 22 24.5 22.8954 24.5 24Z" fill="#2c5f5f"/>
-                    <rect x="22" y="14" width="2" height="2" rx="1" fill="#FFFFFF"/>
-                    <rect x="36" y="14" width="2" height="2" rx="1" fill="#FFFFFF"/>
+                    <circle cx="30" cy="30" r="30" fill="#2C5F5F"/>
+                    <path d="M42 20.25L26.25 36.75L18 28.5L20.25 26.25L26.25 32.25L39.75 19.5L42 21.75Z" fill="#FFFFFF"/>
                 </svg>
             </div>
 
@@ -395,9 +397,8 @@
                 <div class="peterai-header">
                     <h3 class="peterai-title">
                         <svg width="24" height="24" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M30 4C19.78 4 11.2 12.0588 11.2 22V24C11.2 26.1718 11.8437 28.2713 13.0284 30L19.4284 36.4C21.4338 38.4116 23.9317 39.7348 26.69 40.2319V44C26.69 45.1046 27.5854 46 28.69 46H31.31C32.4146 46 33.31 45.1046 33.31 44V40.2319C36.0683 39.7348 38.5662 38.4116 40.5716 36.4L46.9716 30C48.1563 28.2713 48.8 26.1718 48.8 24V22C48.8 12.0588 40.22 4 30 4ZM20 22C20 20.8954 20.8954 20 22 20H38C39.1046 20 40 20.8954 40 22V28C40 29.1046 39.1046 30 38 30H22C20.8954 30 20 29.1046 20 28V22ZM24.5 24C24.5 25.1046 25.3954 26 26.5 26H33.5C34.6046 26 35.5 25.1046 35.5 24C35.5 22.8954 34.6046 22 33.5 22H26.5C25.3954 22 24.5 22.8954 24.5 24Z" fill="#FFFFFF"/>
-                            <rect x="22" y="14" width="2" height="2" rx="1" fill="#2c5f5f"/>
-                            <rect x="36" y="14" width="2" height="2" rx="1" fill="#2c5f5f"/>
+                            <circle cx="30" cy="30" r="30" fill="#FFFFFF"/>
+                            <path d="M42 20.25L26.25 36.75L18 28.5L20.25 26.25L26.25 32.25L39.75 19.5L42 21.75Z" fill="#2C5F5F"/>
                         </svg>
                         PeterAI
                     </h3>
