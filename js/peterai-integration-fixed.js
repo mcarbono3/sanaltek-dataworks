@@ -385,38 +385,46 @@
     }
 
     // Función para crear el HTML del widget
-function createWidgetHTML() {
-    return `
-        <div class="peterai-trigger" id="peteraiTrigger">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C8.68629 2 6 4.68629 6 8V14C6 17.3137 8.68629 20 12 20C15.3137 20 18 17.3137 18 14V8C18 4.68629 15.3137 2 12 2Z" fill="white" stroke="#2c5f5f" stroke-width="2"/>
-              <path d="M9 11.5C9 10.6716 9.67157 10 10.5 10C11.3284 10 12 10.6716 12 11.5C12 12.3284 11.3284 13 10.5 13C9.67157 13 9 12.3284 9 11.5Z" fill="#2c5f5f"/>
-              <path d="M15 11.5C15 10.6716 15.6716 10 16.5 10C17.3284 10 18 10.6716 18 11.5C18 12.3284 17.3284 13 16.5 13C15.6716 13 15 12.3284 15 11.5Z" fill="#2c5f5f"/>
-              <path d="M12 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
-              <path d="M9 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
-              <path d="M15 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-        </div>
-
-        <div class="peterai-widget" id="peteraiWidget">
-            <div class="peterai-header">
-                <h3 class="peterai-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2C8.68629 2 6 4.68629 6 8V14C6 17.3137 8.68629 20 12 20C15.3137 20 18 17.3137 18 14V8C18 4.68629 15.3137 2 12 2Z" fill="white" stroke="#2c5f5f" stroke-width="2"/>
-                      <path d="M9 11.5C9 10.6716 9.67157 10 10.5 10C11.3284 10 12 10.6716 12 11.5C12 12.3284 11.3284 13 10.5 13C9.67157 13 9 12.3284 9 11.5Z" fill="#2c5f5f"/>
-                      <path d="M15 11.5C15 10.6716 15.6716 10 16.5 10C17.3284 10 18 10.6716 18 11.5C18 12.3284 17.3284 13 16.5 13C15.6716 13 15 12.3284 15 11.5Z" fill="#2c5f5f"/>
-                      <path d="M12 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
-                      <path d="M9 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
-                      <path d="M15 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    PeterAI
-                </h3>
-                </div>
+    function createWidgetHTML() {
+        return `
+            <div class="peterai-trigger" id="peteraiTrigger">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.68629 2 6 4.68629 6 8V14C6 17.3137 8.68629 20 12 20C15.3137 20 18 17.3137 18 14V8C18 4.68629 15.3137 2 12 2Z" fill="white" stroke="#2c5f5f" stroke-width="2"/>
+                    <path d="M9 11.5C9 10.6716 9.67157 10 10.5 10C11.3284 10 12 10.6716 12 11.5C12 12.3284 11.3284 13 10.5 13C9.67157 13 9 12.3284 9 11.5Z" fill="#2c5f5f"/>
+                    <path d="M15 11.5C15 10.6716 15.6716 10 16.5 10C17.3284 10 18 10.6716 18 11.5C18 12.3284 17.3284 13 16.5 13C15.6716 13 15 12.3284 15 11.5Z" fill="#2c5f5f"/>
+                    <path d="M12 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M9 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M15 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
+                </svg>
             </div>
-    `;
-}
 
-                <!-- Área de autenticación -->
+            <div class="peterai-widget" id="peteraiWidget">
+                <div class="peterai-header">
+                    <h3 class="peterai-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C8.68629 2 6 4.68629 6 8V14C6 17.3137 8.68629 20 12 20C15.3137 20 18 17.3137 18 14V8C18 4.68629 15.3137 2 12 2Z" fill="white" stroke="#2c5f5f" stroke-width="2"/>
+                            <path d="M9 11.5C9 10.6716 9.67157 10 10.5 10C11.3284 10 12 10.6716 12 11.5C12 12.3284 11.3284 13 10.5 13C9.67157 13 9 12.3284 9 11.5Z" fill="#2c5f5f"/>
+                            <path d="M15 11.5C15 10.6716 15.6716 10 16.5 10C17.3284 10 18 10.6716 18 11.5C18 12.3284 17.3284 13 16.5 13C15.6716 13 15 12.3284 15 11.5Z" fill="#2c5f5f"/>
+                            <path d="M12 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M9 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M15 20V22" stroke="#2c5f5f" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        PeterAI
+                    </h3>
+                    <div class="peterai-controls">
+                        <button class="peterai-btn" id="peteraiMinimizeBtn" title="Minimizar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="5" y="11" width="14" height="2" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        <button class="peterai-btn" id="peteraiCloseBtn" title="Cerrar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
                 <div class="peterai-auth" id="peteraiAuth">
                     <h3>Acceso a PeterAI</h3>
                     <input type="text" class="peterai-input" id="peteraiUsername" placeholder="Usuario" autocomplete="username">
@@ -425,7 +433,6 @@ function createWidgetHTML() {
                     <div class="peterai-error" id="peteraiAuthError" style="display: none;"></div>
                 </div>
 
-                <!-- Área de chat -->
                 <div class="peterai-chat" id="peteraiChat">
                     <div class="peterai-messages" id="peteraiMessages">
                         <div class="peterai-message system">
