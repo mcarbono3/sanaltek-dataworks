@@ -36,26 +36,7 @@ exports.handler = async (event, context) => {
     };
   }
 
-    try {
-        // === CAMBIOS: Se elimina la verificación de autenticación para que el chat funcione libremente. ===
-        // const token = extractToken(event.headers);
-        // if (!token) {
-        //     return {
-        //         statusCode: 401,
-        //         headers,
-        //         body: JSON.stringify({ error: 'Token de autenticación requerido' })
-        //     };
-        // }
-
-        // const payload = verifyToken(token);
-        // if (!payload) {
-        //     return {
-        //         statusCode: 401,
-        //         headers,
-        //         body: JSON.stringify({ error: 'Token inválido o expirado' })
-        //     };
-        // }
-        // =============================================================================================
+  try {
 
     // Procesar la consulta
     const { message, context } = JSON.parse(event.body);
