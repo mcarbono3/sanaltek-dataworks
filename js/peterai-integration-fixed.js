@@ -1,5 +1,5 @@
 /**
- * Script de integración para PeterAI Widget - Versión Optimizada
+ * Script de integración para PeterAI Widget - Versión Corregida
  * Este archivo debe ser incluido en la página web de Sanaltek Dataworks
  */
 
@@ -12,14 +12,13 @@
         apiBaseUrl: 'https://majestic-cascaron-b5db5a.netlify.app/.netlify/functions',
         
         // Configuración visual
-        position: 'bottom-right',
-        theme: 'sanaltek',
+        position: 'bottom-right', // bottom-right, bottom-left, top-right, top-left
+        theme: 'sanaltek', // sanaltek, dark, light
         
-        // Comportamiento del widget
+        // Configuración de comportamiento
         autoOpen: false,
         showWelcomeMessage: true,
-        persistSession: false, // Se deshabilita la persistencia
-        disableAuth: true, // NUEVA OPCIÓN: Deshabilita la autenticación
+        persistSession: false, // Se deshabilita la persistencia ya que no hay autenticación
         
         // Ruta del nuevo icono
         iconPath: 'images/icons/PeterAI_Icono_V3.png'
@@ -62,8 +61,8 @@
                 position: fixed;
                 bottom: 20px;
                 right: 20px;
-                width: 80px; /* Tamaño del trigger ajustado para el nuevo icono */
-                height: 80px; /* Tamaño del trigger ajustado */
+                width: 80px; /* Ajustado para el nuevo ícono */
+                height: 80px;
                 background: none; /* Se elimina el fondo degradado para mostrar solo la imagen */
                 border-radius: 50%;
                 cursor: pointer;
@@ -137,11 +136,11 @@
             }
 
             .peterai-auth {
-                display: none; /* El área de autenticación se oculta por defecto */
+                display: none; /* Oculta el área de autenticación */
             }
 
             .peterai-chat {
-                display: flex; /* El área de chat se muestra por defecto */
+                display: flex; /* Muestra el área de chat por defecto */
                 flex-direction: column;
                 flex: 1;
                 height: 100%;
