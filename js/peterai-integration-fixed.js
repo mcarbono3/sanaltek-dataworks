@@ -1,5 +1,5 @@
 /**
- * Script de integración para PeterAI Widget - Versión Corregida
+ * Script de integración para PeterAI Widget - Versión Corregida y Optimizada
  * Este archivo debe ser incluido en la página web de Sanaltek Dataworks
  */
 
@@ -18,7 +18,7 @@
         // Configuración de comportamiento
         autoOpen: false,
         showWelcomeMessage: true,
-        persistSession: true
+        persistSession: false // La persistencia de sesión no es necesaria al deshabilitar la autenticación
     };
 
     // Función para cargar CSS dinámicamente
@@ -80,7 +80,7 @@
             }
             
             /* Ajuste del SVG para el nuevo icono */
-            .peterai-trigger svg {
+            .peterai-trigger svg, .peterai-title svg {
                 width: 32px;
                 height: 32px;
             }
@@ -125,58 +125,7 @@
             }
 
             .peterai-auth {
-                padding: 30px;
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-                flex: 1;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .peterai-auth h3 {
-                color: white;
-                margin: 0 0 20px 0;
-                text-align: center;
-            }
-
-            .peterai-input {
-                width: 100%;
-                padding: 12px 15px;
-                border: none;
-                border-radius: 10px;
-                background: rgba(255, 255, 255, 0.9);
-                font-size: 14px;
-                transition: all 0.2s ease;
-                box-sizing: border-box;
-            }
-
-            .peterai-input:focus {
-                outline: none;
-                background: white;
-                box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
-            }
-
-            .peterai-login-btn {
-                width: 100%;
-                padding: 12px;
-                background: white;
-                color: #2c5f5f;
-                border: none;
-                border-radius: 10px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.2s ease;
-            }
-
-            .peterai-login-btn:hover {
-                background: #f0f0f0;
-                transform: translateY(-1px);
-            }
-
-            .peterai-login-btn:disabled {
-                opacity: 0.6;
-                cursor: not-allowed;
+                display: none; /* Se oculta el área de autenticación por defecto */
             }
 
             .peterai-chat {
@@ -388,8 +337,8 @@
         return `
             <div class="peterai-trigger" id="peteraiTrigger">
                 <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="30" cy="30" r="30" fill="#2C5F5F"/>
-                    <path d="M42 20.25L26.25 36.75L18 28.5L20.25 26.25L26.25 32.25L39.75 19.5L42 21.75Z" fill="#FFFFFF"/>
+                  <circle cx="30" cy="30" r="30" fill="#2C5F5F"/>
+                  <path d="M42 20.25L26.25 36.75L18 28.5L20.25 26.25L26.25 32.25L39.75 19.5L42 21.75Z" fill="#FFFFFF"/>
                 </svg>
             </div>
 
@@ -416,15 +365,7 @@
                     </div>
                 </div>
 
-                <div class="peterai-auth" id="peteraiAuth">
-                    <h3>Acceso a PeterAI</h3>
-                    <input type="text" class="peterai-input" id="peteraiUsername" placeholder="Usuario" autocomplete="username">
-                    <input type="password" class="peterai-input" id="peteraiPassword" placeholder="Contraseña" autocomplete="current-password">
-                    <button class="peterai-login-btn" id="peteraiLoginBtn">Iniciar Sesión</button>
-                    <div class="peterai-error" id="peteraiAuthError" style="display: none;"></div>
-                </div>
-
-                <div class="peterai-chat" id="peteraiChat">
+                <div class="peterai-chat active" id="peteraiChat">
                     <div class="peterai-messages" id="peteraiMessages">
                         <div class="peterai-message system">
                             ¡Hola! Soy PeterAI, tu asistente de IA para Sanaltek Dataworks. ¿En qué puedo ayudarte hoy?
@@ -457,10 +398,12 @@
     class PeterAIWidget {
         constructor(config) {
             this.config = { ...PETERAI_CONFIG, ...config };
-            this.token = localStorage.getItem('peterai_token');
             this.isOpen = false;
             this.isMinimized = false;
-            this.isAuthenticated = false;
+            
+            // La autenticación se deshabilita por completo.
+            // Siempre se considera autenticado para acceder al chat.
+            this.isAuthenticated = true; 
             
             this.init();
         }
@@ -477,22 +420,19 @@
             // Inicializar elementos
             this.initializeElements();
             this.bindEvents();
-            this.checkAuthentication();
+            
+            // Mostrar el área del chat directamente
+            this.showChatArea();
         }
 
         initializeElements() {
             this.trigger = document.getElementById('peteraiTrigger');
             this.widget = document.getElementById('peteraiWidget');
-            this.authArea = document.getElementById('peteraiAuth');
             this.chatArea = document.getElementById('peteraiChat');
             this.messages = document.getElementById('peteraiMessages');
             this.typing = document.getElementById('peteraiTyping');
             this.chatInput = document.getElementById('peteraiChatInput');
             this.sendBtn = document.getElementById('peteraiSendBtn');
-            this.loginBtn = document.getElementById('peteraiLoginBtn');
-            this.usernameInput = document.getElementById('peteraiUsername');
-            this.passwordInput = document.getElementById('peteraiPassword');
-            this.authError = document.getElementById('peteraiAuthError');
             this.minimizeBtn = document.getElementById('peteraiMinimizeBtn');
             this.closeBtn = document.getElementById('peteraiCloseBtn');
         }
@@ -502,15 +442,6 @@
             this.trigger.addEventListener('click', () => this.toggleWidget());
             this.closeBtn.addEventListener('click', () => this.closeWidget());
             this.minimizeBtn.addEventListener('click', () => this.toggleMinimize());
-
-            // Eventos de autenticación
-            this.loginBtn.addEventListener('click', () => this.login());
-            this.usernameInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') this.passwordInput.focus();
-            });
-            this.passwordInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') this.login();
-            });
 
             // Eventos de chat
             this.sendBtn.addEventListener('click', () => this.sendMessage());
@@ -523,103 +454,6 @@
 
             // Auto-resize del textarea
             this.chatInput.addEventListener('input', () => this.autoResizeTextarea());
-        }
-
-        async checkAuthentication() {
-            if (this.token) {
-                try {
-                    // Verificar si el token es válido usando la función de verificación
-                    const response = await fetch(`${this.config.apiBaseUrl}/verify`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${this.token}`
-                        }
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        if (data.success && data.valid) {
-                            this.isAuthenticated = true;
-                            this.showChatArea();
-                            
-                            // Verificar si el token expira pronto (menos de 1 hora)
-                            if (data.expiresIn < 3600) {
-                                this.addMessage('system', 'Tu sesión expirará pronto. Considera renovar tu autenticación.');
-                            }
-                        } else {
-                            this.clearToken();
-                        }
-                    } else {
-                        this.clearToken();
-                    }
-                } catch (error) {
-                    console.error('Error verificando autenticación:', error);
-                    this.clearToken();
-                }
-            }
-        }
-
-        async login() {
-            const username = this.usernameInput.value.trim();
-            const password = this.passwordInput.value.trim();
-
-            if (!username || !password) {
-                this.showError('Por favor, ingresa usuario y contraseña');
-                return;
-            }
-
-            this.loginBtn.disabled = true;
-            this.loginBtn.textContent = 'Iniciando sesión...';
-            this.hideError();
-
-            try {
-                const response = await fetch(`${this.config.apiBaseUrl}/auth`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.success) {
-                    this.token = data.token;
-                    localStorage.setItem('peterai_token', this.token);
-                    this.isAuthenticated = true;
-                    this.showChatArea();
-                    this.addMessage('system', `¡Bienvenido, ${data.user.username}!`);
-                } else {
-                    this.showError(data.error || 'Error de autenticación');
-                }
-            } catch (error) {
-                console.error('Error en login:', error);
-                this.showError('Error de conexión. Inténtalo de nuevo.');
-            } finally {
-                this.loginBtn.disabled = false;
-                this.loginBtn.textContent = 'Iniciar Sesión';
-            }
-        }
-
-        async logout() {
-            if (!this.token) return;
-
-            try {
-                await fetch(`${this.config.apiBaseUrl}/logout`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.token}`
-                    }
-                });
-            } catch (error) {
-                console.error('Error en logout:', error);
-            } finally {
-                this.clearToken();
-                this.showAuthArea();
-                this.addMessage('system', 'Sesión cerrada exitosamente.');
-            }
         }
 
         async sendMessage() {
@@ -637,10 +471,9 @@
                 const response = await fetch(`${this.config.apiBaseUrl}/chat`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.token}`
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         message,
                         context: this.getRecentContext()
                     })
@@ -651,18 +484,11 @@
                 if (response.ok && data.success) {
                     this.addMessage('ai', data.response);
                     
-                    // Mostrar información adicional si hay tareas específicas
                     if (data.specificTask) {
                         this.handleSpecificTask(data.specificTask);
                     }
                 } else {
-                    if (response.status === 401) {
-                        this.clearToken();
-                        this.showAuthArea();
-                        this.addMessage('system', 'Sesión expirada. Por favor, inicia sesión nuevamente.');
-                    } else {
-                        this.addMessage('ai', 'Lo siento, hubo un error procesando tu solicitud.');
-                    }
+                    this.addMessage('ai', 'Lo siento, hubo un error procesando tu solicitud.');
                 }
             } catch (error) {
                 console.error('Error enviando mensaje:', error);
@@ -711,30 +537,8 @@
             this.typing.classList.remove('active');
         }
 
-        showError(message) {
-            this.authError.textContent = message;
-            this.authError.style.display = 'block';
-        }
-
-        hideError() {
-            this.authError.style.display = 'none';
-        }
-
         showChatArea() {
-            this.authArea.style.display = 'none';
             this.chatArea.classList.add('active');
-        }
-
-        showAuthArea() {
-            this.chatArea.classList.remove('active');
-            this.authArea.style.display = 'flex';
-            this.isAuthenticated = false;
-        }
-
-        clearToken() {
-            this.token = null;
-            localStorage.removeItem('peterai_token');
-            this.isAuthenticated = false;
         }
 
         toggleWidget() {
@@ -751,11 +555,7 @@
             this.isOpen = true;
             
             setTimeout(() => {
-                if (this.isAuthenticated) {
-                    this.chatInput.focus();
-                } else {
-                    this.usernameInput.focus();
-                }
+                this.chatInput.focus();
             }, 300);
         }
 
