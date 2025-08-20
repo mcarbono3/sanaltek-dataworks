@@ -1,5 +1,5 @@
 /**
- * Script de integración para PeterAI Widget - Versión Corregida
+ * Script de integración para PeterAI Widget - Versión Corregida y Mejorada
  * Este archivo debe ser incluido en la página web de Sanaltek Dataworks
  */
 
@@ -20,8 +20,8 @@
         showWelcomeMessage: true,
         persistSession: false, // Se deshabilita la persistencia ya que no hay autenticación
         
-        // Ruta del nuevo icono
-        iconPath: 'images/icons/PeterAI_Icono_V3.png'
+        // Ruta del nuevo icono (corregido a .jpg)
+        iconPath: 'PeterAI_Icono_V3.jpg'
     };
 
     // Función para cargar CSS dinámicamente
@@ -34,9 +34,10 @@
                 right: 20px;
                 width: 400px;
                 height: 600px;
-                background: linear-gradient(135deg, #2c5f5f 0%, #4a8080 100%);
+                /* Degradado actualizado con los colores de la guía de diseño */
+                background: linear-gradient(135deg, #1E5F74 0%, #3CAEA3 100%);
                 border-radius: 20px;
-                box-shadow: 0 20px 40px rgba(44, 95, 95, 0.3);
+                box-shadow: 0 20px 40px rgba(30, 95, 116, 0.3);
                 z-index: 10000;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 display: flex;
@@ -61,22 +62,22 @@
                 position: fixed;
                 bottom: 20px;
                 right: 20px;
-                width: 80px; /* Ajustado para el nuevo ícono */
+                width: 80px;
                 height: 80px;
-                background: none; /* Se elimina el fondo degradado para mostrar solo la imagen */
+                background: none;
                 border-radius: 50%;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 10px 20px rgba(44, 95, 95, 0.3);
+                box-shadow: 0 10px 20px rgba(30, 95, 116, 0.3);
                 z-index: 10001;
                 transition: all 0.3s ease;
             }
 
             .peterai-trigger:hover {
                 transform: scale(1.1);
-                box-shadow: 0 15px 30px rgba(44, 95, 95, 0.4);
+                box-shadow: 0 15px 30px rgba(30, 95, 116, 0.4);
             }
 
             .peterai-trigger.hidden {
@@ -136,11 +137,11 @@
             }
 
             .peterai-auth {
-                display: none; /* Oculta el área de autenticación */
+                display: none;
             }
 
             .peterai-chat {
-                display: flex; /* Muestra el área de chat por defecto */
+                display: flex;
                 flex-direction: column;
                 flex: 1;
                 height: 100%;
@@ -165,8 +166,8 @@
             }
 
             .peterai-message.user {
-                background: white;
-                color: #2c5f5f;
+                background: #F5F5F5; /* Gris Claro */
+                color: #333333; /* Gris Profesional */
                 align-self: flex-end;
                 margin-left: auto;
             }
@@ -183,6 +184,16 @@
                 align-self: center;
                 font-size: 12px;
                 font-style: italic;
+            }
+            
+            /* Nuevo estilo para mensajes de estado de tarea */
+            .peterai-message.task-status {
+                background: #4CB963; /* Verde Energía */
+                color: #FFFFFF;
+                align-self: center;
+                font-size: 13px;
+                font-weight: 500;
+                text-align: center;
             }
 
             .peterai-input-area {
@@ -215,7 +226,7 @@
                 width: 40px;
                 height: 40px;
                 background: white;
-                color: #2c5f5f;
+                color: #1E5F74; /* Azul Tecnológico */
                 border: none;
                 border-radius: 50%;
                 cursor: pointer;
@@ -269,14 +280,26 @@
                 animation-delay: 0.4s;
             }
 
-            .peterai-error {
-                background: rgba(255, 0, 0, 0.1);
-                color: #ff6b6b;
+            /* Estilo para el mensaje de error global */
+            .peterai-global-error {
+                position: absolute;
+                bottom: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #ff6b6b;
+                color: white;
                 padding: 10px 15px;
                 border-radius: 10px;
-                font-size: 12px;
-                margin-top: 10px;
-                border: 1px solid rgba(255, 107, 107, 0.3);
+                font-size: 14px;
+                text-align: center;
+                display: none; /* Oculto por defecto */
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .peterai-global-error.active {
+                display: block;
+                opacity: 1;
             }
 
             @media (max-width: 480px) {
@@ -381,7 +404,7 @@
                             <div class="peterai-typing-dot"></div>
                         </div>
                     </div>
-
+                    
                     <div class="peterai-input-area">
                         <textarea class="peterai-chat-input" id="peteraiChatInput" placeholder="Escribe tu mensaje..." rows="1"></textarea>
                         <button class="peterai-send-btn" id="peteraiSendBtn">
@@ -391,6 +414,8 @@
                         </button>
                     </div>
                 </div>
+                <!-- Mensaje de error global -->
+                <div class="peterai-global-error" id="peteraiGlobalError"></div>
             </div>
         `;
     }
@@ -424,6 +449,7 @@
             this.sendBtn = document.getElementById('peteraiSendBtn');
             this.minimizeBtn = document.getElementById('peteraiMinimizeBtn');
             this.closeBtn = document.getElementById('peteraiCloseBtn');
+            this.globalError = document.getElementById('peteraiGlobalError');
         }
 
         bindEvents() {
@@ -446,6 +472,9 @@
             const message = this.chatInput.value.trim();
             if (!message) return;
 
+            // Ocultar cualquier error anterior
+            this.hideGlobalError();
+
             this.addMessage('user', message);
             this.chatInput.value = '';
             this.autoResizeTextarea();
@@ -454,45 +483,79 @@
             this.sendBtn.disabled = true;
 
             try {
-                const response = await fetch(`${this.config.apiBaseUrl}/chat`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ 
-                        message,
-                        context: this.getRecentContext()
-                    })
-                });
+                // Implementación de reintentos con backoff exponencial
+                const maxRetries = 3;
+                let retryCount = 0;
+                let response;
 
-                const data = await response.json();
+                while (retryCount < maxRetries) {
+                    try {
+                        response = await fetch(`${this.config.apiBaseUrl}/chat`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ 
+                                message,
+                                context: this.getRecentContext()
+                            })
+                        });
 
-                if (response.ok && data.success) {
-                    this.addMessage('ai', data.response);
-                    
-                    if (data.specificTask) {
-                        this.handleSpecificTask(data.specificTask);
+                        if (response.ok) {
+                            break; // Salir del bucle si la respuesta es exitosa
+                        }
+                    } catch (e) {
+                        console.error(`Error de conexión (intento ${retryCount + 1}):`, e);
+                        // Reintentar si falla la conexión
+                    }
+                    retryCount++;
+                    if (retryCount < maxRetries) {
+                        // Espera exponencial antes de reintentar
+                        await new Promise(resolve => setTimeout(resolve, Math.pow(2, retryCount) * 1000));
+                    }
+                }
+
+                if (response && response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        this.addMessage('ai', data.response);
+                        
+                        // Nuevo manejo de la tarea específica
+                        if (data.specificTask) {
+                            this.handleSpecificTask(data.specificTask);
+                        }
+                    } else {
+                        // Mostrar mensaje de error del servidor
+                        this.showGlobalError('Error del servidor: ' + (data.error || 'Respuesta no exitosa.'));
+                        this.addMessage('ai', 'Lo siento, hubo un error procesando tu solicitud.');
                     }
                 } else {
-                    this.addMessage('ai', 'Lo siento, hubo un error procesando tu solicitud.');
+                    this.showGlobalError('No se pudo conectar con el servidor. Inténtalo de nuevo más tarde.');
+                    this.addMessage('ai', 'Error de conexión. Por favor, inténtalo de nuevo.');
                 }
+
             } catch (error) {
                 console.error('Error enviando mensaje:', error);
+                this.showGlobalError('Error de conexión. Por favor, inténtalo de nuevo.');
                 this.addMessage('ai', 'Error de conexión. Por favor, inténtalo de nuevo.');
             } finally {
                 this.hideTyping();
                 this.sendBtn.disabled = false;
             }
         }
-
+        
+        // Maneja la visualización de las tareas específicas
         handleSpecificTask(taskResult) {
-            if (taskResult.type === 'web_search') {
-                this.addMessage('system', `Búsqueda realizada: ${taskResult.query}`);
-            } else if (taskResult.type === 'request_registration') {
-                this.addMessage('system', 'Solicitud registrada en el sistema.');
-            } else if (taskResult.type === 'email_draft') {
-                this.addMessage('system', 'Borrador de correo generado.');
-            }
+            const messages = {
+                'web_search': `Búsqueda realizada: "${taskResult.query}"`,
+                'request_registration': 'Solicitud registrada en el sistema.',
+                'email_draft': 'Borrador de correo generado.'
+            };
+            
+            const statusMessage = messages[taskResult.type] || `Tarea completada: ${taskResult.type}`;
+            
+            // Añade un mensaje de estado de tarea con un estilo distinto
+            this.addMessage('task-status', statusMessage);
         }
 
         addMessage(type, content) {
@@ -505,7 +568,7 @@
         }
 
         getRecentContext() {
-            const messageElements = this.messages.querySelectorAll('.peterai-message:not(.system)');
+            const messageElements = this.messages.querySelectorAll('.peterai-message:not(.system):not(.task-status)');
             const recentMessages = Array.from(messageElements).slice(-5);
             
             return recentMessages.map(msg => {
@@ -568,6 +631,20 @@
             setTimeout(() => {
                 this.messages.scrollTop = this.messages.scrollHeight;
             }, 100);
+        }
+
+        // Nueva función para mostrar un mensaje de error global
+        showGlobalError(message) {
+            this.globalError.textContent = message;
+            this.globalError.classList.add('active');
+            setTimeout(() => {
+                this.hideGlobalError();
+            }, 5000); // Ocultar después de 5 segundos
+        }
+
+        // Nueva función para ocultar el mensaje de error global
+        hideGlobalError() {
+            this.globalError.classList.remove('active');
         }
     }
 
