@@ -1,5 +1,5 @@
 /**
- * Script de integración para PeterAI Widget - Versión Corregida y Optimizada
+ * Script de integración para PeterAI Widget - Versión Optimizada
  * Este archivo debe ser incluido en la página web de Sanaltek Dataworks
  */
 
@@ -12,13 +12,17 @@
         apiBaseUrl: 'https://majestic-cascaron-b5db5a.netlify.app/.netlify/functions',
         
         // Configuración visual
-        position: 'bottom-right', // bottom-right, bottom-left, top-right, top-left
-        theme: 'sanaltek', // sanaltek, dark, light
+        position: 'bottom-right',
+        theme: 'sanaltek',
         
-        // Configuración de comportamiento
+        // Comportamiento del widget
         autoOpen: false,
         showWelcomeMessage: true,
-        persistSession: false // La persistencia de sesión no es necesaria al deshabilitar la autenticación
+        persistSession: false, // Se deshabilita la persistencia
+        disableAuth: true, // NUEVA OPCIÓN: Deshabilita la autenticación
+        
+        // Ruta del nuevo icono
+        iconPath: 'images/icons/PeterAI_Icono_V3.png'
     };
 
     // Función para cargar CSS dinámicamente
@@ -58,33 +62,35 @@
                 position: fixed;
                 bottom: 20px;
                 right: 20px;
-                width: 60px;
-                height: 60px;
-                background-color: #2c5f5f;
+                width: 80px; /* Tamaño del trigger ajustado para el nuevo icono */
+                height: 80px; /* Tamaño del trigger ajustado */
+                background: none; /* Se elimina el fondo degradado para mostrar solo la imagen */
                 border-radius: 50%;
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 10px 20px rgba(44, 95, 95, 0.3);
                 z-index: 10001;
                 transition: all 0.3s ease;
             }
 
             .peterai-trigger:hover {
                 transform: scale(1.1);
+                box-shadow: 0 15px 30px rgba(44, 95, 95, 0.4);
             }
 
             .peterai-trigger.hidden {
-                display: none;
-            }
-            
-            /* Ajuste del SVG para el nuevo icono */
-            .peterai-trigger svg, .peterai-title svg {
-                width: 32px;
-                height: 32px;
+                opacity: 0;
+                pointer-events: none;
             }
 
+            .peterai-trigger img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+            
             .peterai-header {
                 background: rgba(255, 255, 255, 0.1);
                 padding: 15px 20px;
@@ -103,6 +109,12 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
+            }
+            
+            /* Ajuste del ícono en el header */
+            .peterai-title img {
+                height: 24px;
+                width: auto;
             }
 
             .peterai-controls {
@@ -125,18 +137,14 @@
             }
 
             .peterai-auth {
-                display: none; /* Se oculta el área de autenticación por defecto */
+                display: none; /* El área de autenticación se oculta por defecto */
             }
 
             .peterai-chat {
-                display: none;
+                display: flex; /* El área de chat se muestra por defecto */
                 flex-direction: column;
                 flex: 1;
                 height: 100%;
-            }
-
-            .peterai-chat.active {
-                display: flex;
             }
 
             .peterai-messages {
@@ -333,39 +341,33 @@
     }
 
     // Función para crear el HTML del widget
-    function createWidgetHTML() {
+    function createWidgetHTML(config) {
         return `
             <div class="peterai-trigger" id="peteraiTrigger">
-                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="30" cy="30" r="30" fill="#2C5F5F"/>
-                  <path d="M42 20.25L26.25 36.75L18 28.5L20.25 26.25L26.25 32.25L39.75 19.5L42 21.75Z" fill="#FFFFFF"/>
-                </svg>
+                <img src="${config.iconPath}" alt="PeterAI Icono">
             </div>
 
             <div class="peterai-widget" id="peteraiWidget">
                 <div class="peterai-header">
                     <h3 class="peterai-title">
-                        <svg width="24" height="24" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="30" cy="30" r="30" fill="#FFFFFF"/>
-                            <path d="M42 20.25L26.25 36.75L18 28.5L20.25 26.25L26.25 32.25L39.75 19.5L42 21.75Z" fill="#2C5F5F"/>
-                        </svg>
+                        <img src="${config.iconPath}" alt="PeterAI Icono" style="height: 24px;">
                         PeterAI
                     </h3>
                     <div class="peterai-controls">
                         <button class="peterai-btn" id="peteraiMinimizeBtn" title="Minimizar">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="5" y="11" width="14" height="2" fill="currentColor"/>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 13H5v-2h14v2z"/>
                             </svg>
                         </button>
                         <button class="peterai-btn" id="peteraiCloseBtn" title="Cerrar">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
                             </svg>
                         </button>
                     </div>
                 </div>
 
-                <div class="peterai-chat active" id="peteraiChat">
+                <div class="peterai-chat" id="peteraiChat">
                     <div class="peterai-messages" id="peteraiMessages">
                         <div class="peterai-message system">
                             ¡Hola! Soy PeterAI, tu asistente de IA para Sanaltek Dataworks. ¿En qué puedo ayudarte hoy?
@@ -394,41 +396,29 @@
         `;
     }
 
-    // Clase principal del widget
     class PeterAIWidget {
         constructor(config) {
             this.config = { ...PETERAI_CONFIG, ...config };
             this.isOpen = false;
             this.isMinimized = false;
             
-            // La autenticación se deshabilita por completo.
-            // Siempre se considera autenticado para acceder al chat.
-            this.isAuthenticated = true; 
-            
             this.init();
         }
 
         init() {
-            // Cargar estilos
             loadCSS();
             
-            // Crear HTML del widget
             const widgetContainer = document.createElement('div');
-            widgetContainer.innerHTML = createWidgetHTML();
+            widgetContainer.innerHTML = createWidgetHTML(this.config);
             document.body.appendChild(widgetContainer);
             
-            // Inicializar elementos
             this.initializeElements();
             this.bindEvents();
-            
-            // Mostrar el área del chat directamente
-            this.showChatArea();
         }
 
         initializeElements() {
             this.trigger = document.getElementById('peteraiTrigger');
             this.widget = document.getElementById('peteraiWidget');
-            this.chatArea = document.getElementById('peteraiChat');
             this.messages = document.getElementById('peteraiMessages');
             this.typing = document.getElementById('peteraiTyping');
             this.chatInput = document.getElementById('peteraiChatInput');
@@ -438,12 +428,10 @@
         }
 
         bindEvents() {
-            // Eventos del trigger y controles
             this.trigger.addEventListener('click', () => this.toggleWidget());
             this.closeBtn.addEventListener('click', () => this.closeWidget());
             this.minimizeBtn.addEventListener('click', () => this.toggleMinimize());
 
-            // Eventos de chat
             this.sendBtn.addEventListener('click', () => this.sendMessage());
             this.chatInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
@@ -452,13 +440,12 @@
                 }
             });
 
-            // Auto-resize del textarea
             this.chatInput.addEventListener('input', () => this.autoResizeTextarea());
         }
 
         async sendMessage() {
             const message = this.chatInput.value.trim();
-            if (!message || !this.isAuthenticated) return;
+            if (!message) return;
 
             this.addMessage('user', message);
             this.chatInput.value = '';
@@ -473,7 +460,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
+                    body: JSON.stringify({ 
                         message,
                         context: this.getRecentContext()
                     })
@@ -537,10 +524,6 @@
             this.typing.classList.remove('active');
         }
 
-        showChatArea() {
-            this.chatArea.classList.add('active');
-        }
-
         toggleWidget() {
             if (this.isOpen) {
                 this.closeWidget();
@@ -589,7 +572,7 @@
         }
     }
 
-    // Función de inicialización global
+    // Inicialización global del widget
     window.initPeterAI = function(config = {}) {
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
@@ -600,9 +583,8 @@
         }
     };
 
-    // Auto-inicialización si no se especifica lo contrario
+    // Auto-inicialización
     if (!window.PETERAI_MANUAL_INIT) {
         window.initPeterAI();
     }
-
 })();
